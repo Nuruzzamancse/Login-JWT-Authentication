@@ -30,7 +30,7 @@ export class LoginComponent implements OnInit {
 
     this.authService.authenticateUser(user).subscribe(data =>{
           if(data.success){
-              this.authService.storeUserDatta(data.token, data.user);
+            this.authService.storeUserDatta(data.token, data.user);
             this.flashMessage.success('You are now logged in',{delay:3000});
             this.router.navigate(['dashboard']);
           }

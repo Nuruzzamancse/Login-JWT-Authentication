@@ -5,6 +5,7 @@ import {HttpModule} from "@angular/http";
 import {RouterModule, Routes} from "@angular/router";
 
 
+
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { LoginComponent } from './components/login/login.component';
@@ -16,13 +17,14 @@ import { RegisterComponent } from './components/register/register.component';
 import {ValidateService} from "./services/validate.service";
 import { AuthService} from "./services/auth.service";
 import { FlashMessageModule } from "angular-flash-message";
+import {AuthGaurd} from "./gaurds/auth.gaurd";
 
 const appRoutes: Routes = [
   {path:'',component:HomeComponent},
   {path:'register',component:RegisterComponent},
   {path:'login',component:LoginComponent},
-  {path:'dashboard',component:DahsboardComponent},
-  {path:'profile',component:ProfileComponent},
+  {path:'dashboard',component:DahsboardComponent, canActivate: [AuthGaurd]},
+  {path:'profile',component:ProfileComponent , canActivate: [AuthGaurd]},
 
 ]
 
@@ -44,7 +46,7 @@ const appRoutes: Routes = [
     RouterModule.forRoot(appRoutes),
     FlashMessageModule
   ],
-  providers: [ValidateService,AuthService],
+  providers: [ValidateService,AuthService,AuthGaurd],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
